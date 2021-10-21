@@ -26,6 +26,8 @@ public class JwtAuthenticationController {
     @PostMapping(value = "/authenticate")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) {
         String userName = authenticationRequest.getUsername();
+        String domainName = authenticationRequest.getDomainName();
+        String email = authenticationRequest.getEmail();
         if (StringUtils.isEmpty(userName)) {
         //    log.info("username is required");
             return ResponseEntity.badRequest().body("username is required");
@@ -35,7 +37,7 @@ public class JwtAuthenticationController {
         }
 
         try {
-            String token = authenticationService.getAuthToken(userName);
+            String token = authenticationService.getAuthToken(userName, domainName, email);
             return ResponseEntity.ok(new JwtResponse(token));
         } catch (UserNotFoundException e) {
             //log.info(String.format("User %s not found", userName));

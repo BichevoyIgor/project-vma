@@ -24,7 +24,7 @@ public class JwtUserDetailsService implements UserDetailsService {
     @Override
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
         SessionUser sessionUser = new SessionUser(username, pass, new ArrayList<>());
-        sessionUser.setId(Long.valueOf(id));
+//        sessionUser.setId(Long.valueOf(id));
         sessionUser.setClaims(claims);
         return sessionUser;
     }

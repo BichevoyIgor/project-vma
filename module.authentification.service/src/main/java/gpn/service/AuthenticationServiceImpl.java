@@ -31,7 +31,7 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
     private IClaimsService claimsService;
 
     @Override
-    public String getAuthToken(String userName) throws UserNotFoundException, ApplicationException {
+    public String getAuthToken(String userName, String domainName, String email) throws UserNotFoundException, ApplicationException {
 //        SearchResult searchResult;
 //        try {
 //            searchResult = ldapService.findAccountByAccountName(userName);
@@ -44,9 +44,10 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 
         SystemUser sUser = new SystemUser();
         sUser.setUserName(userName);
-        sUser.setDomainName("-");
+        //sUser.setId(1L);
+        sUser.setDomainName(domainName);
         sUser.setDisplayName("-");
-        sUser.setEmail("-");
+        sUser.setEmail(email);
         sUser.setGuid("-");
 //        try {
 //            fillAttributes(sUser, searchResult);
@@ -55,11 +56,11 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 //        }
 
        // SystemUser cUser = userService.getUser(sUser.getUserName());
-        boolean isNewUser = userService.update(sUser);
-        if (isNewUser) {
-            List<Claim> defaultClaims = claimsService.getDefaultUserClaims();
-            claimsService.updateClaims(sUser.getId(), defaultClaims);
-        }
+//        boolean isNewUser = userService.update(sUser);
+//        if (isNewUser) {
+//            List<Claim> defaultClaims = claimsService.getDefaultUserClaims();
+//            claimsService.updateClaims(sUser.getId(), defaultClaims);
+//        }
 
 //        if (cUser != null) {
 //            sUser.setId(cUser.getId());
