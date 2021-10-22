@@ -12,7 +12,8 @@ import java.util.List;
 public class SessionUser extends User {
 
     private Long id;
-
+    private String domainName;
+    private String email;
     private List<Claim> claims;
 
     public SessionUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
@@ -34,6 +35,22 @@ public class SessionUser extends User {
 
     public void setClaims(List<Claim> claims) {
         this.claims = claims;
+    }
+
+    public String getDomainName() {
+        return domainName;
+    }
+
+    public void setDomainName(String domainName) {
+        this.domainName = domainName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
 

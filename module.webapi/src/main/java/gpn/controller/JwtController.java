@@ -19,7 +19,10 @@ public class JwtController {
     @GetMapping("/testjwt")
     public ResponseEntity<?> getFakeResult(@AuthenticationPrincipal SessionUser sUser) {
         try {
-            return ResponseEntity.ok("succes");
+            System.out.println("User: " + sUser.getUsername());
+            System.out.println("DomainName: " + sUser.getDomainName());
+            System.out.println("User email: " + sUser.getEmail());
+            return ResponseEntity.ok(String.format("succes connect: user: %s,\nDomainName: %s,\nemail: %s", sUser.getUsername(), sUser.getDomainName(), sUser.getEmail()));
         } catch (Exception ex) {
             return ResponseEntity.badRequest().body(ex.getMessage());
         }

@@ -55,6 +55,8 @@ public class JwtTokenUtil implements Serializable {
     public String generateToken(UserDetails userDetails, SystemUser sUser) {
         Map<String, Object> allClaims = new HashMap<>();
         allClaims.put("id", sUser.getId());
+        allClaims.put("domainName", sUser.getDomainName());
+        allClaims.put("email", sUser.getEmail());
 
         List<String> claims = new ArrayList<>();
         if (sUser.getClaims() != null) {
