@@ -41,6 +41,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         String username = null;
         String jwtToken = null;
         Integer id = null;
+        String email =null;
+        String domainName = null;
         List<Claim> claims = new ArrayList<>();
 // JWT Token is in the form "Bearer token". Remove Bearer word and get
 // only the Token
@@ -49,6 +51,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             try {
                 username = jwtTokenUtil.getUsernameFromToken(jwtToken);
                 id = (Integer) jwtTokenUtil.getAllClaimsFromToken(jwtToken).remove("id");
+                email = (String) jwtTokenUtil.getAllClaimsFromToken(jwtToken).remove("email");
+                domainName = (String) jwtTokenUtil.getAllClaimsFromToken(jwtToken).remove("domainName");
                 claims = (List<Claim>) jwtTokenUtil.getAllClaimsFromToken(jwtToken).get(keyRole);
             } catch (IllegalArgumentException e) {
                 System.out.println("Unable to get JWT Token");
@@ -61,6 +65,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 // Once we get the token validate it.
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             this.jwtUserDetailsService.setId(id);
+            this.jwtUserDetailsService.setDomainName(domainName);
+            this.jwtUserDetailsService.setEmail(email);
             this.jwtUserDetailsService.setClaims(claims);
             User userDetails = this.jwtUserDetailsService.loadUserByUsername(username);
 

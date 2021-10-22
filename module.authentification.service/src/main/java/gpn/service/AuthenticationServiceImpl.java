@@ -44,7 +44,7 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 
         SystemUser sUser = new SystemUser();
         sUser.setUserName(userName);
-        //sUser.setId(1L);
+        sUser.setId(1L);
         sUser.setDomainName(domainName);
         sUser.setDisplayName("-");
         sUser.setEmail(email);
